@@ -62,19 +62,12 @@ else{
         }
 
 
-###################### Connect Azure AD #############################
-
-Write-Host "connecting to Azure AD"
-
-Connect-AzureAD
-
-Write-Host "connected to AzureAD"
-
-Write-Host "connecting to Azure"
+###################### Connect Azure and Azure AD #############################
 
 Connect-AzAccount
-
-Write-Host "connected to Azure"
+$context=Get-AzContext
+Connect-AzureAD -TenantId $context.Tenant.TenantId -AccountId $context.Account.Id
+Get-AzureADUser
 
 #####################################################################endregion
 
