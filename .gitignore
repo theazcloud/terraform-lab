@@ -5,3 +5,4 @@ Templates/.terraform/providers/registry.terraform.io/hashicorp/random/3.1.0/wind
 Templates/main.destroy.tfplan
 Templates/terraform.tfstate
 Templates/terraform.tfstate.backup
+Templates/main.tfplan
