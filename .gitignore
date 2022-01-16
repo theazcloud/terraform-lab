@@ -2,3 +2,6 @@
 Templates/.terraform.lock.hcl
 Templates/.terraform/providers/registry.terraform.io/hashicorp/azurerm/2.92.0/windows_amd64/terraform-provider-azurerm_v2.92.0_x5.exe
 Templates/.terraform/providers/registry.terraform.io/hashicorp/random/3.1.0/windows_amd64/terraform-provider-random_v3.1.0_x5.exe
+Templates/main.destroy.tfplan
+Templates/terraform.tfstate
+Templates/terraform.tfstate.backup
