@@ -1,6 +1,6 @@
 ﻿#####################################################################################################################################################
 ##                                                                                                                                                 ##
-## This script creates the AD App Registrations to be used as Service Connections in Azure DevOps Structure in the Tenant the process can take     ##
+## This script creates the AD App Registrations to be used as a Service Connection for Terraform                                                   ##
 ##                                                                                                                                                 ##
 #####################################################################################################################################################
 
