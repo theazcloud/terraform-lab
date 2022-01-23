@@ -116,7 +116,7 @@ else{
 Remove-Variable Secrets
 
 $startDate = Get-Date
-$endDate = $startDate.AddYears(1)
+$endDate = $startDate.AddHours(8)
 $aadApisecret = New-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -CustomKeyIdentifier "Terraform Connection secret" -StartDate $startDate -EndDate $endDate
 
 
