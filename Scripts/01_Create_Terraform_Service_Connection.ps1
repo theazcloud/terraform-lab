@@ -120,12 +120,20 @@ $endDate = $startDate.AddHours(8)
 $aadApisecret = New-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -CustomKeyIdentifier "Terraform Connection secret" -StartDate $startDate -EndDate $endDate
 
 
+$billing  = Get-AzBillingAccount
+
+$billingprofile = Get-AzBillingProfile -BillingAccountName $billing.Name
+
+$billinginvoicesection = Get-AzInvoiceSection -BillingAccountName $billing.Name -BillingProfileName $billingprofile.Name
 
 
 $env:ARM_CLIENT_ID=$(${SC}.AppId)
 $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
 $env:ARM_TENANT_ID=$(${Tenant}.Id)
 $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
+$env:ARM_BILLING_ACCOUNT_NAME = $(${billing}.Name)
+$env:ARM_BILLING_PROFILE_NAME = $(${billingprofile}.Name)
+$env:ARM_INVOICE_SECTION_NAME = $(${billinginvoicesection}.Name)
 
 gci env:ARM_*
 
