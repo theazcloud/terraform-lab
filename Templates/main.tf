@@ -19,9 +19,9 @@ provider "azurerm" {
 
 # Your code goes here
 data "azurerm_billing_mca_account_scope" "demo" {
-  billing_account_name = ""
-  billing_profile_name = ""
-  invoice_section_name = ""
+  billing_account_name =  ARM_BILLING_ACCOUNT_NAME
+  billing_profile_name =  ARM_BILLING_PROFILE_NAME
+  invoice_section_name =  ARM_INVOICE_SECTION_NAME
 }
 
 resource "azurerm_subscription" "demo" {
