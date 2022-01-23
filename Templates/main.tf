@@ -18,16 +18,19 @@ provider "azurerm" {
 
 
 # Your code goes here
-
-resource "azurerm_resource_group" "resource_groups_hub" {
-
-  name     = "hub-core-sec-rsg"
-  location = var.resource_group_location
+data "azurerm_billing_mca_account_scope" "demo" {
+  billing_account_name = ""
+  billing_profile_name = ""
+  invoice_section_name = ""
 }
 
-resource "azurerm_resource_group" "resource_groups_sec" {
+resource "azurerm_subscription" "demo" {
+  subscription_name = "ptdemo account"
+  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+}
 
-  name     = "hub-operations-rsg"
-  location = var.resource_group_location
-
+resource "azurerm_subscription" "example" {
+  alias             = "ptdem"
+  subscription_name = "ptdemo account"
+  subscription_id   = demo.id
 }
