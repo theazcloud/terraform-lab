@@ -16,17 +16,11 @@ provider "azurerm" {
   tenant_id       = ""
 }
 
-variable "billing_account_name" {
-  string = ""
-}
+variable "billing_account_name" {}
 
-variable "billing_profile_name" {
-  string = ""
-}
+variable "billing_profile_name" {}
 
-variable "invoice_section_name" {
-  string = ""
-}
+variable "invoice_section_name" {}
 
 data "azurerm_billing_mca_account_scope" "demo" {
   billing_account_name =  "${var.billing_account_name}"
