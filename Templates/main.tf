@@ -28,7 +28,7 @@ data "azurerm_billing_mca_account_scope" "demo" {
   invoice_section_name =  "${var.invoice_section_name}"
 }
 
-resource "azurerm_subscription" "demo" {
+resource "azurerm_subscription" "demo_sub" {
   subscription_name = "ptdemo account"
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
 }
