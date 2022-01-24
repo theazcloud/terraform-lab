@@ -7,3 +7,4 @@ Templates/terraform.tfstate
 Templates/terraform.tfstate.backup
 Templates/main.tfplan
 Templates/.terraform/providers/registry.terraform.io/hashicorp/azurerm/2.93.0/windows_amd64/terraform-provider-azurerm_v2.93.0_x5.exe
+*.exe

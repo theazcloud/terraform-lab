@@ -29,6 +29,6 @@ data "azurerm_billing_mca_account_scope" "demo" {
 }
 
 resource "azurerm_subscription" "demo_sub" {
-  subscription_name = "ptdemo account"
+  subscription_name = "ptdemo subscription"
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
 }
