@@ -65,9 +65,8 @@ else{
 ###################### Connect Azure and Azure AD #############################
 
 Connect-AzAccount
-$context=Get-AzContext
-Connect-AzureAD -TenantId $context.Tenant.TenantId -AccountId $context.Account.Id
-Get-AzureADUser
+
+Connect-AzureAD
 
 #####################################################################endregion
 
