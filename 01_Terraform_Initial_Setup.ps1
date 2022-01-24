@@ -25,7 +25,7 @@ if(-not $checkAadmodule){
 
         Write-Host 'Azure AD Powershell Module needs to be imported'
 
-        Import-Module AzureAD
+        Import-Module AzureAD -UseWindowsPowerShell
 
         Write-Host 'Azure AD Module impoerted, we are good to go'
 
