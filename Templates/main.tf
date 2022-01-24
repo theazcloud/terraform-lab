@@ -17,22 +17,24 @@ provider "azurerm" {
 }
 
 variable "billing_account_name" {
-  type = string
+  default = ""
 }
-# Your code goes here
+
+variable "billing_profile_name" {
+  default = ""
+}
+
+variable "invoice_section_name" {
+  default = ""
+}
+
 data "azurerm_billing_mca_account_scope" "demo" {
   billing_account_name =  "${var.billing_account_name}"
-  billing_profile_name =  ""
-  invoice_section_name =  ""
+  billing_profile_name =  "${var.billing_profile_name}"
+  invoice_section_name =  "${var.invoice_section_name}"
 }
 
 resource "azurerm_subscription" "demo" {
   subscription_name = "ptdemo account"
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
-}
-
-resource "azurerm_subscription" "example" {
-  alias             = "ptdem"
-  subscription_name = "ptdemo account"
-  subscription_id   = demo.id
 }
