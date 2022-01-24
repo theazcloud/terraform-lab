@@ -136,17 +136,18 @@ $INVOICE_SECTION_NAME = $(${billinginvoicesection}.Name)
 
 gci env:ARM_*
 
-gci env:TF_VAR_*
+
 
 
 #gci env:ARM_* | Remove-Item
 
 terraform init
 
+terraform plan -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.tfplan
+
+terraform apply "main.tfplan"
 
 terraform plan -destroy -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.destroy.tfplan
-
-terraform plan -help
 
 
 
