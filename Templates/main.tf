@@ -17,15 +17,15 @@ provider "azurerm" {
 }
 
 variable "billing_account_name" {
-  default = ""
+  string = ""
 }
 
 variable "billing_profile_name" {
-  default = ""
+  string = ""
 }
 
 variable "invoice_section_name" {
-  default = ""
+  string = ""
 }
 
 data "azurerm_billing_mca_account_scope" "demo" {
