@@ -16,19 +16,21 @@ provider "azurerm" {
   tenant_id       = ""
 }
 
-variable "billing_account_name" {}
+resource "azurerm_management_group" "example_parent" {
+  display_name = "Test_ParentGroup"
 
-variable "billing_profile_name" {}
-
-variable "invoice_section_name" {}
-
-data "azurerm_billing_mca_account_scope" "demo" {
-  billing_account_name =  "${var.billing_account_name}"
-  billing_profile_name =  "${var.billing_profile_name}"
-  invoice_section_name =  "${var.invoice_section_name}"
+}
+resource "azurerm_management_group" "example_child" {
+  display_name               = "Test_ChildGroup"
+  parent_management_group_id = azurerm_management_group.example_parent.id
 }
 
-resource "azurerm_subscription" "demo_sub" {
-  subscription_name = "ptdemo account"
-  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+resource "azurerm_management_group" "example_child2" {
+  display_name               = "Test_ChildGroup_2"
+  parent_management_group_id = azurerm_management_group.example_parent.id
+}
+
+resource "azurerm_management_group" "example_child3" {
+  display_name               = "Test_ChildGroup_3"
+  parent_management_group_id = azurerm_management_group.example_parent.id
 }
