@@ -122,9 +122,6 @@ $env:ARM_CLIENT_ID=$(${SC}.AppId)
 $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
 $env:ARM_TENANT_ID=$(${Tenant}.Id)
 $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
-$BILLING_ACCOUNT_NAME = $(${billing}.Name)
-$BILLING_PROFILE_NAME = $(${billingprofile}.Name)
-$INVOICE_SECTION_NAME = $(${billinginvoicesection}.Name)
 
 gci env:ARM_*
 
