@@ -9,7 +9,6 @@
 $env = @('dev')
 $projectshortname = "hta"  # Update this variable with your short name for the project
 
-
 #######################################################################################
 
 $checkAadmodule = get-module AzureAd
@@ -119,13 +118,6 @@ $endDate = $startDate.AddHours(8)
 $aadApisecret = New-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -CustomKeyIdentifier "Terraform Connection secret" -StartDate $startDate -EndDate $endDate
 
 
-$billing  = Get-AzBillingAccount
-
-$billingprofile = Get-AzBillingProfile -BillingAccountName $billing.Name
-
-$billinginvoicesection = Get-AzInvoiceSection -BillingAccountName $billing.Name -BillingProfileName $billingprofile.Name
-
-
 $env:ARM_CLIENT_ID=$(${SC}.AppId)
 $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
 $env:ARM_TENANT_ID=$(${Tenant}.Id)
@@ -136,20 +128,10 @@ $INVOICE_SECTION_NAME = $(${billinginvoicesection}.Name)
 
 gci env:ARM_*
 
-
-
-
 #gci env:ARM_* | Remove-Item
 
 terraform init
 
-terraform plan -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.tfplan
-
-terraform apply "main.tfplan"
-
-terraform plan -destroy -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.destroy.tfplan
-
-terraform apply "main.destroy.tfplan"
 
 
 
