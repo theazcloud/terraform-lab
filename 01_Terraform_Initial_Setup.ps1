@@ -123,7 +123,7 @@ $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
 $env:ARM_TENANT_ID=$(${Tenant}.Id)
 $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
 
-gci env:ARM_*
+#gci env:ARM_*
 
 #gci env:ARM_* | Remove-Item
 
