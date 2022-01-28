@@ -6,3 +6,4 @@
 */*.tfstate
 */terraform.tfstate.backup
 *.exe
+.terraform.lock.hcl
