@@ -6,17 +6,17 @@
 
 ######################## Input Variabbles ###############################
 
-$cliXMLPath = 'D:\Temp'
+$cliXMLPath = 'D:\Temp\env-vars.clixml'
 
 $GithubPath = 'D:\Github'
 
 ##########################################################################
 
-Import-CliXml -path $cliXMLPath\env-vars.clixml | ForEach-Object { Set-Item "env:$($_.Name)" $_.Value }
+Import-CliXml -path $cliXMLPath | ForEach-Object { Set-Item "env:$($_.Name)" $_.Value }
 
 Get-ChildItem env:ARM_*
 
-Remove-Item -path $cliXMLPath\env-vars.clixml -Force
+Remove-Item -path $cliXMLPath -Force
 
 Get-ChildItem env:ARM_*
 

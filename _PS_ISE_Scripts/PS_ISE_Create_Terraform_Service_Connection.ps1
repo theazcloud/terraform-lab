@@ -8,6 +8,7 @@
 
 $env = @('dev')
 $projectshortname = "hta"  # Update this variable with your short name for the project
+$cliXMLOutputPath = 'D:\Temp\env-vars.clixml'
 
 
 #######################################################################################
@@ -126,7 +127,7 @@ $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
 $env:ARM_TENANT_ID=$(${Tenant}.Id)
 $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
 
-gci env:ARM_* | Export-Clixml -Path D:\Temp\env-vars.clixml
+gci env:ARM_* | Export-Clixml -Path $cliXMLOutputPath
 
 
 
