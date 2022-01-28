@@ -129,7 +129,6 @@ $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
 
 
 
-
 cd D:\Github\terraform-lab
 
 
