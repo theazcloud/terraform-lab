@@ -1,8 +1,14 @@
 ﻿#####################################################################################################################################################
 ##                                                                                                                                                 ##
-## This script creates the AD App Registrations to be used as a Service Connection for Terraform                                                   ##
+## This script removes the AD App Registrations to be used as a Service Connection for Terraform                                                   ##
 ##                                                                                                                                                 ##
 #####################################################################################################################################################
+
+terraform init
+
+terraform plan -destroy -out main.destroy.tfplan
+
+terraform apply "main.destroy.tfplan"
 
 ##################### Input Variables #################################################
 
@@ -69,11 +75,6 @@ Connect-AzureAD
 
 #####################################################################endregion
 
-$context = Get-AzContext
-
-$Sub = Get-AzSubscription -SubscriptionName $context.SubscriptionName
-
-$Tenant = Get-AzTenant
 
 ####################################################################
 
