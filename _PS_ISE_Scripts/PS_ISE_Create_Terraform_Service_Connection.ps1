@@ -127,12 +127,17 @@ $env:ARM_TENANT_ID=$(${Tenant}.Id)
 $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
 
 
-gci env:ARM_*
+
+
+
+cd D:\Github\terraform-lab
 
 
 terraform init
 
+terraform plan -out main.tfplan
 
+terraform apply "main.tfplan"
 
 
 
