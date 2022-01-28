@@ -10,3 +10,4 @@
 terraform.tfstate
 terraform.tfstate.backup
 .terraform/modules/enterprise_scale/
+main.tfplan
