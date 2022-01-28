@@ -10,6 +10,15 @@ terraform plan -destroy -out main.destroy.tfplan
 
 terraform apply "main.destroy.tfplan"
 
+Remove-Item -path .\terraform.tfstate -Force
+
+Remove-Item -path .\terraform.tfstate.backup -Force
+
+Remove-Item -Path .\main.destroy.tfplan
+
+Remove-Item -Path .\main.tfplan
+
+
 ##################### Input Variables #################################################
 
 $env = @('dev')
