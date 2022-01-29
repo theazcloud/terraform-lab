@@ -145,12 +145,12 @@ $BILLING_PROFILE_NAME = $(${billingprofile}.Name)
 $INVOICE_SECTION_NAME = $(${billinginvoicesection}.Name)
 
 
-$Sub_Dependencies = @(
+$Sub_Dependencies = @{
 
-    $BILLING_ACCOUNT_NAME,
-    $BILLING_PROFILE_NAME,
-    $INVOICE_SECTION_NAME
-)
+    BILLING_ACCOUNT_NAME = $BILLING_ACCOUNT_NAME;
+    BILLING_PROFILE_NAME = $BILLING_PROFILE_NAME;
+    INVOICE_SECTION_NAME = $INVOICE_SECTION_NAME
+}
 
 
 $Sub_Dependencies |  Export-Clixml -Path $subInfoOutput

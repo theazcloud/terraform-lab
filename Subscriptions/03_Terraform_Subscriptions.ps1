@@ -4,17 +4,20 @@
 ##                                                                                                                                                 ##
 #####################################################################################################################################################
 
+############### Input Variables ########################
 
-$billing  = Get-AzBillingAccount
+$subInfoPath = 'D:\Temp\sub-vars.clixml'
 
-$billingprofile = Get-AzBillingProfile -BillingAccountName $billing.Name
+########################################################
 
-$billinginvoicesection = Get-AzInvoiceSection -BillingAccountName $billing.Name -BillingProfileName $billingprofile.Name
+[hashtable]$SubPreReq = Import-CliXml -path $subInfoPath
 
+$BILLING_ACCOUNT_NAME = $SubPreReq.BILLING_ACCOUNT_NAME
 
-$BILLING_ACCOUNT_NAME = $(${billing}.Name)
-$BILLING_PROFILE_NAME = $(${billingprofile}.Name)
-$INVOICE_SECTION_NAME = $(${billinginvoicesection}.Name)
+$BILLING_PROFILE_NAME = $SubPreReq.BILLING_PROFILE_NAME
+
+$INVOICE_SECTION_NAME = $SubPreReq.INVOICE_SECTION_NAME
+
 
 
 terraform init
@@ -22,10 +25,6 @@ terraform init
 terraform plan -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.tfplan
 
 terraform apply "main.tfplan"
-
-#terraform plan -destroy -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.destroy.tfplan
-
-#terraform apply "main.destroy.tfplan"
 
 
 

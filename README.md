@@ -7,6 +7,8 @@ Step 1 - Create the service connection - Open a seesion of PowerShell ISE in Adm
     - $projectshortname
     - $cliXMLOutputPath
 
-    - This script will create an App Registration and secret, create the environment variables and export them to a temporary file for use by the next script
+    - This script will create an App Registration and secret, create the environment and subscription variables then exports them to temporary files for use by the next scripts
 
-Step 2 - Deploy initial LZ using Azure Enterprise Scale Module - Open VS Code updated the Input Variables then run \terraform-lab\01_Terraform-Initial_Setup.ps1
+Step 2 - Deploy initial LZ using Azure Enterprise Scale Module - update the Input Variables in \terraform-lab\01_Terraform-Initial_Setup.ps1 then run the script which will connect to Azure and deploy the Management Group structure, policies and subscriptions
+
+

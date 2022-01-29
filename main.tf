@@ -24,7 +24,6 @@ provider "azurerm" {
 data "azurerm_client_config" "core" {}
 
 # Use variables to customize the deployment
-
 variable "root_id" {
   type    = string
   default = "es"
@@ -52,4 +51,33 @@ module "enterprise_scale" {
   root_id        = var.root_id
   root_name      = var.root_name
 
+}
+
+variable "billing_account_name" {}
+
+variable "billing_profile_name" {}
+
+variable "invoice_section_name" {}
+
+data "azurerm_billing_mca_account_scope" "demo" {
+  billing_account_name =  "${var.billing_account_name}"
+  billing_profile_name =  "${var.billing_profile_name}"
+  invoice_section_name =  "${var.invoice_section_name}"
+}
+
+resource "azurerm_subscription" "sandbox_sub" {
+  subscription_name = "es sandbox"
+  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+}
+
+data "azurerm_management_group" "sandbox_mg"{
+  name = "es-sandboxes"
+}
+
+data "azurerm_subscription" "sub_to_add"{
+  subscription_id = azurerm_subscription.sandbox_sub.subscription_id
+}
+resource "azurerm_management_group_subscription_association" "updated_sandbox_mg" {
+  management_group_id = data.azurerm_management_group.sandbox_mg.id
+  subscription_id     = data.azurerm_subscription.sub_to_add.id
 }
