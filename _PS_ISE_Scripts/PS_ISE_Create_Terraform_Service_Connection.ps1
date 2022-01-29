@@ -8,7 +8,8 @@
 
 $env = @('dev')
 $projectshortname = "hta"  # Update this variable with your short name for the project
-$cliXMLOutputPath = 'D:\Temp\env-vars.clixml'
+$cliXMLOutput = 'D:\Temp\env-vars.clixml'
+$subInfoOutput = 'D:\Temp\sub-vars.clixml'
 
 
 #######################################################################################
@@ -127,9 +128,29 @@ $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
 $env:ARM_TENANT_ID=$(${Tenant}.Id)
 $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
 
-gci env:ARM_* | Export-Clixml -Path $cliXMLOutputPath
+gci env:ARM_* | Export-Clixml -Path $cliXMLOutput
 
 
+$billing  = Get-AzBillingAccount
 
+$billingprofile = Get-AzBillingProfile -BillingAccountName $billing.Name
+
+$billinginvoicesection = Get-AzInvoiceSection -BillingAccountName $billing.Name -BillingProfileName $billingprofile.Name
+
+
+$BILLING_ACCOUNT_NAME = $(${billing}.Name)
+$BILLING_PROFILE_NAME = $(${billingprofile}.Name)
+$INVOICE_SECTION_NAME = $(${billinginvoicesection}.Name)
+
+
+$Sub_Dependencies = @(
+
+    $BILLING_ACCOUNT_NAME,
+    $BILLING_PROFILE_NAME,
+    $INVOICE_SECTION_NAME
+)
+
+
+$Sub_Dependencies |  Export-Clixml -Path $subInfoOutput
 
 
