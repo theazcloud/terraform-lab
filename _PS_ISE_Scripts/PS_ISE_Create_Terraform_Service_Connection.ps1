@@ -71,7 +71,7 @@ else{
 Connect-AzAccount
 $context=Get-AzContext
 Connect-AzureAD -TenantId $context.Tenant.TenantId -AccountId $context.Account.Id
-Get-AzureADUser
+Write-Host 'Connected to Azure and Azure AD'
 
 #####################################################################endregion
 
@@ -123,10 +123,12 @@ $startDate = Get-Date
 $endDate = $startDate.AddHours(8)
 $aadApisecret = New-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -CustomKeyIdentifier "Terraform Connection secret" -StartDate $startDate -EndDate $endDate
 
+
 $env:ARM_CLIENT_ID=$(${SC}.AppId)
 $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
 $env:ARM_TENANT_ID=$(${Tenant}.Id)
 $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
+
 
 gci env:ARM_* | Export-Clixml -Path $cliXMLOutput
 
@@ -153,4 +155,5 @@ $Sub_Dependencies = @(
 
 $Sub_Dependencies |  Export-Clixml -Path $subInfoOutput
 
+Write-Host "All done here, you can close Powershell ISE it's off to VS Code for everything else"
 
