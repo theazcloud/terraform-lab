@@ -91,7 +91,7 @@ resource "azurerm_subscription" "lz_sub" {
 }
 
 data "azurerm_management_group" "sandbox_mg"{
-  name = "es-sandboxes"
+  name = "es-sandbox"
 }
 
 data "azurerm_management_group" "mgmt_mg"{
@@ -110,12 +110,12 @@ data "azurerm_management_group" "lz_mg"{
   name = "es-landing-zones"
 }
 
-data "azurerm_subscription" "sub_to_add"{
+data "azurerm_subscription" "sandbox_sub_to_add"{
   subscription_id = azurerm_subscription.sandbox_sub.subscription_id
 }
 resource "azurerm_management_group_subscription_association" "updated_sandbox_mg" {
   management_group_id = data.azurerm_management_group.sandbox_mg.id
-  subscription_id     = data.azurerm_subscription.sub_to_add.id
+  subscription_id     = data.azurerm_subscription.sandbox_sub_to_add.id
 }
 
 data "azurerm_subscription" "mgmt_sub_to_add"{

@@ -68,6 +68,8 @@ else{
 
 ###################### Connect Azure and Azure AD #############################
 
+Write-Host "look for login prompt in new window"
+
 Connect-AzAccount
 $context=Get-AzContext
 Connect-AzureAD -TenantId $context.Tenant.TenantId -AccountId $context.Account.Id

@@ -16,8 +16,6 @@ $GithubPath = 'D:\Github'
 
 Import-CliXml -path $cliXMLPath | ForEach-Object { Set-Item "env:$($_.Name)" $_.Value }
 
-Get-ChildItem env:ARM_*
-
 Remove-Item -path $cliXMLPath -Force
 
 [hashtable]$SubPreReq = Import-CliXml -path $subInfoPath
@@ -34,11 +32,17 @@ Set-Location -path $GithubPath\terraform-lab
 
 terraform init
 
-#terraform plan -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.tfplan
+terraform plan -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.tfplan
 
-#terraform apply "main.tfplan"
+terraform apply "main.tfplan"
 
 terraform state list
+
+terraform state rm 'data.azurerm_subscription.sub_to_add'
+
+terraform state rm 'azurerm_management_group_subscription_association.updated_sandbox_mg'
+
+terraform state rm 'module.enterprise_scale.azurerm_management_group.level_2["/providers/Microsoft.Management/managementGroups/es-sandbox"]'
 
 
 
