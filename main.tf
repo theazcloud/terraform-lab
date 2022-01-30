@@ -110,7 +110,7 @@ data "azurerm_management_group" "lz_mg"{
   name = "es-landing-zones"
 }
 
-data "azurerm_subscription" "sub_to_add"{
+data "azurerm_subscription" "sandbox_sub_to_add"{
   subscription_id = azurerm_subscription.sandbox_sub.subscription_id
 }
 resource "azurerm_management_group_subscription_association" "updated_sandbox_mg" {
