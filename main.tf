@@ -70,8 +70,44 @@ resource "azurerm_subscription" "sandbox_sub" {
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
 }
 
+resource "azurerm_subscription" "mgmt_sub" {
+  subscription_name = "es management"
+  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+}
+
+resource "azurerm_subscription" "ident_sub" {
+  subscription_name = "es identity"
+  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+}
+
+resource "azurerm_subscription" "connect_sub" {
+  subscription_name = "es connectivity"
+  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+}
+
+resource "azurerm_subscription" "lz_sub" {
+  subscription_name = "es landing-zone"
+  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+}
+
 data "azurerm_management_group" "sandbox_mg"{
   name = "es-sandboxes"
+}
+
+data "azurerm_management_group" "mgmt_mg"{
+  name = "es-management"
+}
+
+data "azurerm_management_group" "ident_mg"{
+  name = "es-identity"
+}
+
+data "azurerm_management_group" "connect_mg"{
+  name = "es-connectivity"
+}
+
+data "azurerm_management_group" "lz_mg"{
+  name = "es-landing-zones"
 }
 
 data "azurerm_subscription" "sub_to_add"{
@@ -80,4 +116,36 @@ data "azurerm_subscription" "sub_to_add"{
 resource "azurerm_management_group_subscription_association" "updated_sandbox_mg" {
   management_group_id = data.azurerm_management_group.sandbox_mg.id
   subscription_id     = data.azurerm_subscription.sub_to_add.id
+}
+
+data "azurerm_subscription" "mgmt_sub_to_add"{
+  subscription_id = azurerm_subscription.mgmt_sub.subscription_id
+}
+resource "azurerm_management_group_subscription_association" "updated_management_mg" {
+  management_group_id = data.azurerm_management_group.mgmt_mg.id
+  subscription_id     = data.azurerm_subscription.mgmt_sub_to_add.id
+}
+
+data "azurerm_subscription" "ident_sub_to_add"{
+  subscription_id = azurerm_subscription.ident_sub.subscription_id
+}
+resource "azurerm_management_group_subscription_association" "updated_identity_mg" {
+  management_group_id = data.azurerm_management_group.ident_mg.id
+  subscription_id     = data.azurerm_subscription.ident_sub_to_add.id
+}
+
+data "azurerm_subscription" "connect_sub_to_add"{
+  subscription_id = azurerm_subscription.connect_sub.subscription_id
+}
+resource "azurerm_management_group_subscription_association" "updated_conectivity_mg" {
+  management_group_id = data.azurerm_management_group.connect_mg.id
+  subscription_id     = data.azurerm_subscription.connect_sub_to_add.id
+}
+
+data "azurerm_subscription" "lz_sub_to_add"{
+  subscription_id = azurerm_subscription.lz_sub.subscription_id
+}
+resource "azurerm_management_group_subscription_association" "updated_landing-zone_mg" {
+  management_group_id = data.azurerm_management_group.lz_mg.id
+  subscription_id     = data.azurerm_subscription.lz_sub_to_add.id
 }
