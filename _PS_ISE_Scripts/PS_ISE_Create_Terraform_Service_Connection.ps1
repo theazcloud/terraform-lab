@@ -66,6 +66,9 @@ else{
         }
 
 
+
+Write-Host 'look for new window opened to enter credentials' 
+
 ###################### Connect Azure and Azure AD #############################
 
 Connect-AzAccount

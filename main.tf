@@ -67,47 +67,73 @@ data "azurerm_billing_mca_account_scope" "demo" {
 
 resource "azurerm_subscription" "sandbox_sub" {
   subscription_name = "es sandboxes"
+  depends_on = [
+    module.enterprise_scale]
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+
 }
 
 resource "azurerm_subscription" "mgmt_sub" {
   subscription_name = "es management"
+  depends_on = [
+    module.enterprise_scale]
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
 }
 
 resource "azurerm_subscription" "ident_sub" {
   subscription_name = "es identity"
+  depends_on = [
+    module.enterprise_scale]
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
 }
 
 resource "azurerm_subscription" "connect_sub" {
   subscription_name = "es connectivity"
+  depends_on = [
+    module.enterprise_scale]
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
 }
 
 resource "azurerm_subscription" "lz_sub" {
   subscription_name = "es landing-zone"
+  depends_on = [
+    module.enterprise_scale]
   billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
 }
 
 data "azurerm_management_group" "sandbox_mg"{
   name = "es-sandboxes"
+  depends_on = [
+    module.enterprise_scale
+  ]
 }
 
 data "azurerm_management_group" "mgmt_mg"{
   name = "es-management"
+  depends_on = [
+    module.enterprise_scale
+  ]
 }
 
 data "azurerm_management_group" "ident_mg"{
   name = "es-identity"
+  depends_on = [
+    module.enterprise_scale
+  ]
 }
 
 data "azurerm_management_group" "connect_mg"{
   name = "es-connectivity"
+  depends_on = [
+    module.enterprise_scale
+  ]
 }
 
 data "azurerm_management_group" "lz_mg"{
   name = "es-landing-zones"
+  depends_on = [
+    module.enterprise_scale
+  ]
 }
 
 data "azurerm_subscription" "sub_to_add"{
