@@ -141,7 +141,7 @@ data "azurerm_subscription" "sandbox_sub_to_add"{
 }
 resource "azurerm_management_group_subscription_association" "updated_sandbox_mg" {
   management_group_id = data.azurerm_management_group.sandbox_mg.id
-  subscription_id     = data.azurerm_subscription.sub_to_add.id
+  subscription_id     = data.azurerm_subscription.sandbox_sub_to_add.id
 }
 
 data "azurerm_subscription" "mgmt_sub_to_add"{
