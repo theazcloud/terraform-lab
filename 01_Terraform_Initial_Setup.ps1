@@ -14,11 +14,6 @@ $GithubPath = 'D:\Github'
 
 ##########################################################################
 
-Remove-Item $env:ARM_CLIENT_ID
-Remove-Item $env:ARM_SUBSCRIPTION_ID
-Remove-Item $env:ARM_TENANT_ID
-Remove-Item $env:ARM_CLIENT_SECRET
-
 Import-CliXml -path $cliXMLPath | ForEach-Object { Set-Item "env:$($_.Name)" $_.Value }
 
 Remove-Item -path $cliXMLPath -Force
