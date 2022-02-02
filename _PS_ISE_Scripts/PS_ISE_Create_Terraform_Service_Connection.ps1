@@ -7,7 +7,7 @@
 ##################### Input Variables #################################################
 
 $env = @('dev')
-$projectshortname = "hta"  # Update this variable with your short name for the project
+$projectshortname = "csa"  # Update this variable with your short name for the project
 $cliXMLOutput = 'D:\Temp\env-vars.clixml'
 $subInfoOutput = 'D:\Temp\sub-vars.clixml'
 
@@ -123,7 +123,7 @@ else{
 Remove-Variable Secrets
 
 $startDate = Get-Date
-$endDate = $startDate.AddHours(8)
+$endDate = $startDate.AddYears(1)
 $aadApisecret = New-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -CustomKeyIdentifier "Terraform Connection secret" -StartDate $startDate -EndDate $endDate
 
 
