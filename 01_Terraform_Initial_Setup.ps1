@@ -18,6 +18,8 @@ Import-CliXml -path $cliXMLPath | ForEach-Object { Set-Item "env:$($_.Name)" $_.
 
 Remove-Item -path $cliXMLPath -Force
 
+gci env:ARM*
+
 [hashtable]$SubPreReq = Import-CliXml -path $subInfoPath
 
 $BILLING_ACCOUNT_NAME = $SubPreReq.BILLING_ACCOUNT_NAME
