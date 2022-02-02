@@ -16,7 +16,9 @@ $GithubPath = 'D:\Github'
 
 Import-CliXml -path $cliXMLPath | ForEach-Object { Set-Item "env:$($_.Name)" $_.Value }
 
-Remove-Item -path $cliXMLPath -Force
+gci env:ARM_*
+
+#Remove-Item -path $cliXMLPath -Force
 
 
 [hashtable]$SubPreReq = Import-CliXml -path $subInfoPath
@@ -27,7 +29,7 @@ $BILLING_PROFILE_NAME = $SubPreReq.BILLING_PROFILE_NAME
 
 $INVOICE_SECTION_NAME = $SubPreReq.INVOICE_SECTION_NAME
 
-Remove-Item -path $subInfoPath -Force
+#Remove-Item -path $subInfoPath -Force
 
 Set-Location -path $GithubPath\terraform-lab
 
