@@ -13,3 +13,5 @@ terraform.tfstate.backup
 main.tfplan
 .terraform.tfstate.lock.info
 .terraform/modules/modules.json
+es-lz/.terraform/modules/modules.json
+es-lz/.terraform/modules/enterprise_scale/

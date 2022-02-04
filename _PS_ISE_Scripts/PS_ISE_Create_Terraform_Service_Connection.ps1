@@ -67,7 +67,7 @@ else{
 
 
 
-Write-Host 'look for new window opened to enter credentials' 
+Write-Host 'look for new window opened to enter credentials'
 
 ###################### Connect Azure and Azure AD #############################
 
@@ -96,42 +96,43 @@ if(-not($mySC = Get-AzureADApplication -Filter "DisplayName eq '$($SCName)'" -Er
         $appURI = "https://"+$SCName.ToLower()
 
         $mySC = New-AzureADApplication -DisplayName $SCName -Homepage $appURI -ReplyUrls $appURI
+        $SC = Get-AzureADApplication -SearchString $SCName
+        New-AzureADServicePrincipal -AccountEnabled $true -AppId $SC.AppId -AppRoleAssignmentRequired $true -DisplayName $SCName -Tags {WindowsAzureActiveDirectoryIntegratedApp}
+        Get-AzureADServicePrincipal -SearchString $SCName
 }
-Write-Host "App Regsitration $SCName exists or has now been created"
-
-
-$SC = Get-AzureADApplication -SearchString $SCName
-
-
-New-AzureADServicePrincipal -AccountEnabled $true -AppId $SC.AppId -AppRoleAssignmentRequired $true -DisplayName $SCName -Tags {WindowsAzureActiveDirectoryIntegratedApp}
-
-Get-AzureADServicePrincipal -SearchString $SCName
+else{
+        Write-Host "App Regsitration $SCName exists or has now been created"
+}
 
 
 $Secrets = Get-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -ErrorAction SilentlyContinue
 
-if(-not $Secrets){
 
+if(-not $Secrets){
         Write-Host "No secrets all good to go"
         }
 else{
-
 
         foreach($Key in $secrets){
 
         Remove-AzureADApplicationPasswordCredential -KeyId $key.KeyId -ObjectId $SC.ObjectId
 
+                }
         }
 
-}
 
 Remove-Variable Secrets
+Get-ChildItem env:ARM_* | Remove-Item
+
+if($aadApisecret){
+        Remove-Variable aadApisecret
+}
 
 $startDate = Get-Date
 $endDate = $startDate.AddHours(8)
 $aadApisecret = New-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -CustomKeyIdentifier "Terraform Connection secret" -StartDate $startDate -EndDate $endDate
 
-$clearenv = Get-ChildItem env:ARM_* | Remove-Item
+
 
 $env:ARM_CLIENT_ID=$(${SC}.AppId)
 $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
@@ -139,7 +140,9 @@ $env:ARM_TENANT_ID=$(${Tenant}.Id)
 $env:ARM_CLIENT_SECRET=$(${aadApisecret}.Value)
 
 
-gci env:ARM_* | Export-Clixml -Path $cliXMLOutput
+Get-ChildItem env:ARM_* | Export-Clixml -Path $cliXMLOutput
+
+Get-ChildItem env:ARM_* | Remove-Item
 
 
 $billing  = Get-AzBillingAccount
@@ -156,9 +159,9 @@ $INVOICE_SECTION_NAME = $(${billinginvoicesection}.Name)
 
 $Sub_Dependencies = @{
 
-    BILLING_ACCOUNT_NAME = $BILLING_ACCOUNT_NAME;
-    BILLING_PROFILE_NAME = $BILLING_PROFILE_NAME;
-    INVOICE_SECTION_NAME = $INVOICE_SECTION_NAME
+BILLING_ACCOUNT_NAME = $BILLING_ACCOUNT_NAME;
+BILLING_PROFILE_NAME = $BILLING_PROFILE_NAME;
+INVOICE_SECTION_NAME = $INVOICE_SECTION_NAME
 }
 
 
