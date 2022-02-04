@@ -80,7 +80,7 @@ Write-Host 'Connected to Azure and Azure AD'
 
 $context = Get-AzContext
 
-$Sub = Get-AzSubscription -SubscriptionName $context.SubscriptionName
+$Sub = Get-AzSubscription -SubscriptionName 'Azure subscription 1'
 
 $Tenant = Get-AzTenant
 
@@ -103,6 +103,11 @@ Write-Host "App Regsitration $SCName exists or has now been created"
 $SC = Get-AzureADApplication -SearchString $SCName
 
 
+New-AzureADServicePrincipal -AccountEnabled $true -AppId $SC.AppId -AppRoleAssignmentRequired $true -DisplayName $SCName -Tags {WindowsAzureActiveDirectoryIntegratedApp}
+
+Get-AzureADServicePrincipal -SearchString $SCName
+
+
 $Secrets = Get-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -ErrorAction SilentlyContinue
 
 if(-not $Secrets){
@@ -123,9 +128,10 @@ else{
 Remove-Variable Secrets
 
 $startDate = Get-Date
-$endDate = $startDate.AddYears(1)
+$endDate = $startDate.AddHours(8)
 $aadApisecret = New-AzureADApplicationPasswordCredential -ObjectId $SC.ObjectId -CustomKeyIdentifier "Terraform Connection secret" -StartDate $startDate -EndDate $endDate
 
+$clearenv = Get-ChildItem env:ARM_* | Remove-Item
 
 $env:ARM_CLIENT_ID=$(${SC}.AppId)
 $env:ARM_SUBSCRIPTION_ID=$(${Sub}.Id)
