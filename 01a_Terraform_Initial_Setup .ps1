@@ -18,6 +18,8 @@ Import-CliXml -path $cliXMLPath | ForEach-Object { Set-Item "env:$($_.Name)" $_.
 
 Remove-Item -path $cliXMLPath -Force
 
+Get-ChildItem env:ARM_*
+
 
 [hashtable]$SubPreReq = Import-CliXml -path $subInfoPath
 
@@ -29,7 +31,7 @@ $INVOICE_SECTION_NAME = $SubPreReq.INVOICE_SECTION_NAME
 
 Remove-Item -path $subInfoPath -Force
 
-Set-Location -path $GithubPath\terraform-lab\es-lz
+Set-Location -path $GithubPath\terraform-lab\hta-lz
 
 az login --tenant $env:ARM_TENANT_ID
 
@@ -38,3 +40,4 @@ terraform init
 terraform plan -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.tfplan
 
 #terraform apply "main.tfplan"
+

@@ -3,18 +3,17 @@ terraform {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "~>2.0"
-
     }
   }
 }
 
 provider "azurerm" {
+  features {}
 
-      client_id       = ""
-      client_secret   = ""
-      subscription_id = ""
-      tenant_id       = ""
-      features {}
+  client_id       = ""
+  client_secret   = ""
+  subscription_id = ""
+  tenant_id       = ""
 }
 
 # Get the current client configuration from the AzureRM provider.
