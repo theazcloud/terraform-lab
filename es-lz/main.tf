@@ -176,3 +176,42 @@ resource "azurerm_management_group_subscription_association" "updated_landing-zo
   management_group_id = data.azurerm_management_group.lz_mg.id
   subscription_id     = data.azurerm_subscription.lz_sub_to_add.id
 }
+
+provider "azurerm" {
+  alias = "sandbox"
+  subscription_id = azurerm_subscription.sandbox_sub.subscription_id
+  client_id       = ""
+  client_secret   = ""
+  tenant_id       = ""
+  features {}
+}
+
+provider "azurerm" {
+  alias = "mgmt"
+  subscription_id = azurerm_subscription.mgmt_sub.subscription_id
+  features {}
+}
+
+provider "azurerm" {
+  alias = "identity"
+  subscription_id = azurerm_subscription.ident_sub.subscription_id
+  features {}
+}
+
+provider "azurerm" {
+  alias = "connect"
+  subscription_id = azurerm_subscription.connect_sub.subscription_id
+  features {}
+}
+
+provider "azurerm" {
+  alias = "landing_zone"
+  subscription_id = azurerm_subscription.lz_sub.subscription_id
+  features {}
+}
+
+resource "azurerm_resource_group" "sandbox" {
+  name = var.resource_group_name[4]
+  location = var.location
+  provider = azurerm.sandbox
+}

@@ -101,7 +101,7 @@ if(-not($mySC = Get-AzureADApplication -Filter "DisplayName eq '$($SCName)'" -Er
         Get-AzureADServicePrincipal -SearchString $SCName
 }
 else{
-        Write-Host "App Regsitration $SCName exists or has now been created"
+        Write-Host "App Registration $SCName exists or has now been created"
         $SC = Get-AzureADApplication -SearchString $SCName
 }
 
