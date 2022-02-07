@@ -189,24 +189,36 @@ provider "azurerm" {
 provider "azurerm" {
   alias = "mgmt"
   subscription_id = azurerm_subscription.mgmt_sub.subscription_id
+  client_id       = ""
+  client_secret   = ""
+  tenant_id       = ""
   features {}
 }
 
 provider "azurerm" {
   alias = "identity"
   subscription_id = azurerm_subscription.ident_sub.subscription_id
+  client_id       = ""
+  client_secret   = ""
+  tenant_id       = ""
   features {}
 }
 
 provider "azurerm" {
   alias = "connect"
   subscription_id = azurerm_subscription.connect_sub.subscription_id
+  client_id       = ""
+  client_secret   = ""
+  tenant_id       = ""
   features {}
 }
 
 provider "azurerm" {
   alias = "landing_zone"
   subscription_id = azurerm_subscription.lz_sub.subscription_id
+  client_id       = ""
+  client_secret   = ""
+  tenant_id       = ""
   features {}
 }
 
@@ -214,4 +226,28 @@ resource "azurerm_resource_group" "sandbox" {
   name = var.resource_group_name[4]
   location = var.location
   provider = azurerm.sandbox
+}
+
+resource "azurerm_resource_group" "mgmt" {
+  name = var.resource_group_name[3]
+  location = var.location
+  provider = azurerm.mgmt
+}
+
+resource "azurerm_resource_group" "identity" {
+  name = var.resource_group_name[2]
+  location = var.location
+  provider = azurerm.identity
+}
+
+resource "azurerm_resource_group" "connect" {
+  name = var.resource_group_name[1]
+  location = var.location
+  provider = azurerm.connect
+}
+
+resource "azurerm_resource_group" "landing_zone" {
+  name = var.resource_group_name[0]
+  location = var.location
+  provider = azurerm.landing_zone
 }
