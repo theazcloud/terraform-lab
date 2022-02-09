@@ -20,16 +20,14 @@ if(-not $checkAadmodule){
 
         Write-Host 'Azure AD Powershell Module needs to be installed'
 
-        Install-Module AzureAD
+        Install-Module AzureAD -Scope AllUsers -AllowClobber
 
         Write-Host 'Azure AD PowerShell Mobule installed'
 
 
         Write-Host 'Azure AD Powershell Module needs to be imported'
 
-        Import-Module AzureAD
-
-        Import-Module AzureAD
+        Import-Module AzureAD -Global
 
         Write-Host 'Azure AD Module impoerted, we are good to go'
 
@@ -47,14 +45,14 @@ if(-not $checkAzmodule){
 
         Write-Host 'Azure Powershell Module needs to be installed'
 
-        Install-Module Az
+        Install-Module Az -Scope AllUsers -AllowClobber
 
         Write-Host 'Azure PowerShell Mobule installed'
 
 
         Write-Host 'Azure Powershell Module needs to be imported'
 
-        Import-Module Az
+        Import-Module Az -Global
 
         Write-Host 'Azure Module impoerted, we are good to go'
 
