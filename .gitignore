@@ -17,3 +17,4 @@ hta-lz/.terraform/modules/enterprise_scale/
 hta-lz/.terraform/modules/modules.json
 es-lz/.terraform/modules/modules.json
 es-lz/.terraform/modules/enterprise_scale/
+ez-lz-nosubs/.terraform/modules/enterprise_scale/
