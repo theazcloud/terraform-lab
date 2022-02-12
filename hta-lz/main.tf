@@ -86,3 +86,18 @@ resource "azurerm_management_group_subscription_association" "updated_management
   management_group_id = data.azurerm_management_group.mgmt_mg.id
   subscription_id     = data.azurerm_subscription.mgmt_sub_to_add.id
 }
+
+provider "azurerm" {
+  alias = "mgmt"
+  subscription_id = azurerm_subscription.mgmt_sub.subscription_id
+  client_id       = ""
+  client_secret   = ""
+  tenant_id       = ""
+  features {}
+}
+
+resource "azurerm_resource_group" "mgmt" {
+  name = var.resource_group_name[3]
+  location = var.location
+  provider = azurerm.mgmt
+}
