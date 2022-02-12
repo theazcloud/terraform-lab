@@ -8,3 +8,9 @@ variable "location" {
 description = "The location/region where the core network will be created."
 default     = "uksouth"
 }
+
+variable "lz_resource_group_name"{
+    description = "Landing Zones Resource Group"
+    type        = string
+    default     = "landing-zone-rg"
+}
