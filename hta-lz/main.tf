@@ -84,7 +84,7 @@ data "azurerm_subscription" "mgmt_sub_to_add"{
 }
 resource "azurerm_management_group_subscription_association" "updated_management_mg" {
   management_group_id = data.azurerm_management_group.mgmt_mg.id
-  subscription_id     = data.azurerm_subscription.mgmt_sub_to_add.subscription_id
+  subscription_id     = azurerm_subscription.mgmt_sub.subscription_id
 }
 
 provider "azurerm" {
@@ -116,7 +116,7 @@ data "azurerm_subscription" "lz_sub_to_add"{
 }
 resource "azurerm_management_group_subscription_association" "updated_lz_mg" {
   management_group_id = data.azurerm_management_group.lz_mg.id
-  subscription_id     = data.azurerm_subscription.lz_sub_to_add.subscription_id
+  subscription_id     = azurerm_subscription.lz_sub.subscription_id
 }
 
 provider "azurerm" {
