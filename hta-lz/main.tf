@@ -84,7 +84,7 @@ data "azurerm_subscription" "mgmt_sub_to_add"{
 }
 resource "azurerm_management_group_subscription_association" "updated_management_mg" {
   management_group_id = data.azurerm_management_group.mgmt_mg.id
-  subscription_id     = data.azurerm_subscription.mgmt_sub_to_add.id
+  subscription_id     = data.azurerm_subscription.mgmt_sub_to_add.subscription_id
 }
 
 provider "azurerm" {
@@ -96,8 +96,39 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "mgmt" {
-  name = var.resource_group_name[3]
+
+resource "azurerm_subscription" "lz_sub" {
+  subscription_name = "es landing zones"
+  depends_on = [
+    module.enterprise_scale]
+  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+}
+
+data "azurerm_management_group" "lz_mg"{
+  name = "es-landing-zones"
+  depends_on = [
+    module.enterprise_scale
+  ]
+}
+
+data "azurerm_subscription" "lz_sub_to_add"{
+  subscription_id = azurerm_subscription.lz_sub.subscription_id
+}
+resource "azurerm_management_group_subscription_association" "updated_lz_mg" {
+  management_group_id = data.azurerm_management_group.lz_mg.id
+  subscription_id     = data.azurerm_subscription.lz_sub_to_add.subscription_id
+}
+
+provider "azurerm" {
+  alias = "lz"
+  subscription_id = azurerm_subscription.lz_sub.subscription_id
+  client_id       = ""
+  client_secret   = ""
+  tenant_id       = ""
+  features {}
+}
+resource "azurerm_resource_group" "lz" {
+  name = var.resource_group_name[0]
   location = var.location
-  provider = azurerm.mgmt
+  provider = azurerm.lz
 }

@@ -39,5 +39,5 @@ terraform init
 
 terraform plan -var "billing_account_name=${BILLING_ACCOUNT_NAME}" -var "billing_profile_name=${BILLING_PROFILE_NAME}" -var "invoice_section_name=${INVOICE_SECTION_NAME}" -out main.tfplan
 
-#terraform apply "main.tfplan"
+terraform apply "main.tfplan"
 
