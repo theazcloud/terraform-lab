@@ -21,4 +21,4 @@ provider "azurerm" {
 
 data "azurerm_client_config" "core" {}
 
-variable "billing_account_name" {}
+variable  "ARM_BILLING_ACCOUNT_NAME" {}
