@@ -41,8 +41,7 @@ data "azurerm_billing_mca_account_scope" "demo" {
   invoice_section_name =  "${var.ARM_INVOICE_SECTION_NAME}"
 }
 
-resource "azurerm_subscription" "tf_cloud_sub" {
-  subscription_name = "tf cloud"
-  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
-
+resource "azurerm_resource_group" "tf_cloud_rg" {
+  name     = "tf_cloud_rg"
+  location = "uksouth"
 }
