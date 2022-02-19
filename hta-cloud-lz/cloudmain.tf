@@ -33,3 +33,9 @@ data "azurerm_billing_mca_account_scope" "demo" {
   billing_profile_name =  "${var.ARM_BILLING_PROFILE_NAME}"
   invoice_section_name =  "${var.ARM_INVOICE_SECTION_NAME}"
 }
+
+resource "azurerm_subscription" "tf_cloud_sub" {
+  subscription_name = "tf cloud"
+  billing_scope_id  = data.azurerm_billing_mca_account_scope.demo.id
+
+}
