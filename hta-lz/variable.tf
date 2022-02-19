@@ -14,3 +14,9 @@ variable "lz_resource_group_name"{
     type        = string
     default     = "landing-zone-rg"
 }
+
+variable "lz_storage_account_name"{
+    description = "Landing Zones Storage Account"
+    type        = string
+    default     = "htalzstorage"
+}
