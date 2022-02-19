@@ -17,10 +17,10 @@ terraform {
 provider "azurerm" {
   features {}
 
-  client_id       = ""
-  client_secret   = ""
-  subscription_id = ""
-  tenant_id       = ""
+  client_id       = TFVAR_client_id
+  client_secret   = TFVAR_client_secret
+  subscription_id = TFVAR_subscription_id
+  tenant_id       = TFVAR_tenant_id
 }
 
 data "azurerm_client_config" "core" {}
