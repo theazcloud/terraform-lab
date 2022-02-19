@@ -22,3 +22,5 @@ provider "azurerm" {
   subscription_id = ""
   tenant_id       = ""
 }
+
+data "azurerm_client_config" "core" {}
